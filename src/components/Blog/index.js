@@ -19,7 +19,6 @@ class Blog extends Component {
 }
 
 Blog.propTypes = {
-  id: PropTypes.Object,
   title: PropTypes.string,
   description: PropTypes.string,
 }
