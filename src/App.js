@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
-import Homepage from './screens/HomePage'
+import { Route, Switch } from "react-router-dom";
+
+import HomePage from './screens/HomePage';
+import BlogPage from './screens/BlogPage';
 
 class App extends Component {
   render() {
     return (
-      <Homepage/>
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/b/:slug" component={BlogPage} />
+      </Switch>
     );
   }
 }

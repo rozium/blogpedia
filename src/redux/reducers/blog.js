@@ -10,7 +10,6 @@ const initialState = {
 
 export function blog(state = initialState, action) {
   const payload = action.payload
-  console.log(action.type, payload);
   switch (action.type) {
     case BLOG.ADDING:
       return {
@@ -66,12 +65,15 @@ export function blog(state = initialState, action) {
         ...state,
         loading: true
       }
-    case BLOG.FETCHING_BLOG_POST_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        blog_post: payload
+    case BLOG.FETCHING_BLOG_POST_SUCCESS:{
+      if (payload) {
+        return {
+          ...state,
+          loading: false,
+          blog_post: [ ...state.blog_post, ...payload ]
+        }
       }
+    }
     case BLOG.FETCHING_BLOG_POST_FAILED:
       return {
         ...state,
