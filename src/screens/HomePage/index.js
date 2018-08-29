@@ -1,10 +1,16 @@
 import React, { Component, Fragment } from "react";
+import { connect } from 'react-redux';
 
 import Header from '../../components/Header';
 import Blog from '../../components/Blog';
 import Button from '../../components/Button';
 
 import Input from '../../components/forms/Input';
+
+import {
+  addBlog,
+  fetchBlogs,
+} from '../../redux/actions/blog';
 
 import {
   Container,
@@ -15,21 +21,27 @@ import {
 class HomePage extends Component {
 
   state = {
-    title: null,
-    description: null,
+    title: '',
+    description: '',
+  }
+
+  componentDidMount() {
+    this.props.fetchBlogs();
   }
 
   render() {
-    const Blogs = [
-      { id: 1, title: "The Best Blog evah", description: "This is the best blog ever. trust me!" },
-      { id: 2, title: "Just a normal blog", description: "All about my self" },
-      { id: 3, title: "My Diary 1", description: "This is my personal diary" },
-      { id: 4, title: "My Diary 2", description: "This is my personal diary" },
-      { id: 5, title: "My Diary 3", description: "This is my personal diary" },
-      { id: 6, title: "My Diary 4", description: "This is my personal diary" },
-      { id: 7, title: "My Diary 5", description: "This is my personal diary" },
-    ];
+    // const Blogs = [
+    //   { id: 1, title: "The Best Blog evah", description: "This is the best blog ever. trust me!" },
+    //   { id: 2, title: "Just a normal blog", description: "All about my self" },
+    //   { id: 3, title: "My Diary 1", description: "This is my personal diary" },
+    //   { id: 4, title: "My Diary 2", description: "This is my personal diary" },
+    //   { id: 5, title: "My Diary 3", description: "This is my personal diary" },
+    //   { id: 6, title: "My Diary 4", description: "This is my personal diary" },
+    //   { id: 7, title: "My Diary 5", description: "This is my personal diary" },
+    // ];
+    const { blogs } = this.props.blog;
     const { title, description } = this.state;
+    console.log(blogs);
     return (
       <Fragment>
         <Header />
@@ -37,7 +49,7 @@ class HomePage extends Component {
           <h1>Welcome to Blogpedia!</h1>
           <h4>Find the best blog here!</h4>
           <BlogWrapper>
-            {Blogs.length && Blogs.map((blog) => {
+            {blogs.length && blogs.map((blog) => {
               return (
                 <Blog
                   key={blog.id}
@@ -70,4 +82,7 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage;
+export default connect(
+  state => ({ blog: state.blog }),
+  { addBlog, fetchBlogs }
+)(HomePage);

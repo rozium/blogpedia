@@ -1,6 +1,6 @@
 import { BLOG } from "./ActionTypes"
-import axios from "../../axios"
-import BASE_URL from "../../constants/BaseUrl"
+import axios from "axios"
+import BASE_URL from "../../constants"
 
 
 export function addBlog(blog) {
@@ -63,28 +63,37 @@ export function removeBlog(blog) {
 export function fetchBlogs() {
   return (dispatch) => {
     dispatch(fetchingBlogs())
+    const data = [
+      { id: 1, title: "The Best Blog evah", description: "This is the best blog ever. trust me!" },
+      { id: 2, title: "Just a normal blog", description: "All about my self" },
+      { id: 3, title: "My Diary 1", description: "This is my personal diary" },
+      { id: 4, title: "My Diary 2", description: "This is my personal diary" },
+      { id: 5, title: "My Diary 3", description: "This is my personal diary" },
+      { id: 6, title: "My Diary 4", description: "This is my personal diary" },
+      { id: 7, title: "My Diary 5", description: "This is my personal diary" },
+    ];
+    dispatch(fetchingBlogsSuccess(data));
+    // axios.get(`${BASE_URL.API}/api/v1/blog`, {
+    // }).then(res => {
+    //   if (res.status !== 200) {
+    //     throw new Error("Server error (not 200).")
+    //   }
 
-    axios.get(`${BASE_URL.API}/api/v1/blog`, {
-    }).then(res => {
-      if (res.status !== 200) {
-        throw new Error("Server error (not 200).")
-      }
+    //   let data = res.data
+    //   if (!data) {
+    //     throw new Error("Server error (no data).")
+    //   }
 
-      let data = res.data
-      if (!data) {
-        throw new Error("Server error (no data).")
-      }
-
-      dispatch(fetchingBlogsSuccess(data))
-    }).catch(err => {
-      dispatch(fetchingBlogsFailed())
-      if (err.status) {
-        alert("Server error (unknown response).")
-      } else {
-        console.warn(JSON.stringify(err))
-        alert(err.message)
-      }
-    })
+    //   dispatch(fetchingBlogsSuccess(data))
+    // }).catch(err => {
+    //   dispatch(fetchingBlogsFailed())
+    //   if (err.status) {
+    //     alert("Server error (unknown response).")
+    //   } else {
+    //     console.warn(JSON.stringify(err))
+    //     alert(err.message)
+    //   }
+    // })
   }
 }
 
