@@ -3,12 +3,12 @@ import axios from "../../axios"
 import BASE_URL from "../../constants/BaseUrl"
 
 
-export function addBlog(post) {
+export function addBlog(blog) {
   return (dispatch) => {
     dispatch(addingBlog())
 
-    axios.post(`${BASE_URL.API}/api/v1/login`, {
-      email, password
+    axios.post(`${BASE_URL.API}/api/v1/blog`, {
+      name: blog.name, description: blog.description
     }).then(res => {
       if (res.status !== 200) {
         throw new Error("Server error (not 200).")
@@ -32,12 +32,11 @@ export function addBlog(post) {
   }
 }
 
-export function removeBlog(post) {
+export function removeBlog(blog) {
   return (dispatch) => {
     dispatch(removingBlog())
 
-    axios.post(`${BASE_URL.API}/api/v1/login`, {
-      email, password
+    axios.delete(`${BASE_URL.API}/api/v1/blog/${blog.id}`, {
     }).then(res => {
       if (res.status !== 200) {
         throw new Error("Server error (not 200).")
@@ -61,12 +60,11 @@ export function removeBlog(post) {
   }
 }
 
-export function fetchBlogs(post) {
+export function fetchBlogs() {
   return (dispatch) => {
     dispatch(fetchingBlogs())
 
-    axios.post(`${BASE_URL.API}/api/v1/login`, {
-      email, password
+    axios.get(`${BASE_URL.API}/api/v1/blog`, {
     }).then(res => {
       if (res.status !== 200) {
         throw new Error("Server error (not 200).")
@@ -77,7 +75,7 @@ export function fetchBlogs(post) {
         throw new Error("Server error (no data).")
       }
 
-      dispatch(fetchingBlogsSuccess())
+      dispatch(fetchingBlogsSuccess(data))
     }).catch(err => {
       dispatch(fetchingBlogsFailed())
       if (err.status) {
@@ -90,12 +88,11 @@ export function fetchBlogs(post) {
   }
 }
 
-export function fetchBlogPost(post) {
+export function fetchBlogPost(blog) {
   return (dispatch) => {
     dispatch(fetchingBlogPost())
 
-    axios.post(`${BASE_URL.API}/api/v1/login`, {
-      email, password
+    axios.get(`${BASE_URL.API}/api/v1/blog/${blog.id}/post`, {
     }).then(res => {
       if (res.status !== 200) {
         throw new Error("Server error (not 200).")
@@ -106,7 +103,7 @@ export function fetchBlogPost(post) {
         throw new Error("Server error (no data).")
       }
 
-      dispatch(fetchingBlogPostSuccess())
+      dispatch(fetchingBlogPostSuccess(data))
     }).catch(err => {
       dispatch(fetchingBlogPostFailed())
       if (err.status) {
@@ -116,24 +113,6 @@ export function fetchBlogPost(post) {
         alert(err.message)
       }
     })
-  }
-}
-
-function addingBlog() {
-  return {
-    type: BLOG.ADDING
-  }
-}
-
-function addingBlogSuccess() {
-  return {
-    type: BLOG.ADDING_SUCCESS
-  }
-}
-
-function addingBlogFailed() {
-  return{
-    type: BLOG.ADDING_FAILED
   }
 }
 
@@ -179,9 +158,10 @@ function fetchingBlogs() {
   }
 }
 
-function fetchingBlogsSuccess() {
+function fetchingBlogsSuccess(blogs) {
   return {
-    type: BLOG.FETCHING_BLOGS_SUCCESS
+    type: BLOG.FETCHING_BLOGS_SUCCESS,
+    payload: blogs
   }
 }
 
@@ -197,9 +177,10 @@ function fetchingBlogPost() {
   }
 }
 
-function fetchingBlogPostSuccess() {
+function fetchingBlogPostSuccess(blogPost) {
   return {
-    type: BLOG.FETCHING_BLOG_POST_SUCCESS
+    type: BLOG.FETCHING_BLOG_POST_SUCCESS,
+    payload: blogPost
   }
 }
 

@@ -2,7 +2,7 @@ import { POST } from '../actions/ActionTypes'
 
 const initialState = {
   loading: false,
-  payload: {}
+  post: {}
 }
 
 export function post(state = initialState, action) {
@@ -62,7 +62,7 @@ export function post(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        payload: payload
+        post: payload
       }
     case POST.FETCHING_POST_FAILED:
       return {

@@ -50,7 +50,7 @@ export function blog(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        payload: payload
+        blogs: payload
       }
     case BLOG.FETCHING_BLOGS_FAILED:
       return {
@@ -60,13 +60,13 @@ export function blog(state = initialState, action) {
       case BLOG.FETCHING_BLOG_POST:
       return {
         ...state,
-        loading: true,
-        payload: payload
+        loading: true
       }
     case BLOG.FETCHING_BLOG_POST_SUCCESS:
       return {
         ...state,
-        loading: false
+        loading: false,
+        blog_post: payload
       }
     case BLOG.FETCHING_BLOG_POST_FAILED:
       return {

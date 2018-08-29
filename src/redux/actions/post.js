@@ -7,8 +7,12 @@ export function addPost(post) {
   return (dispatch) => {
     dispatch(addingPost())
 
-    axios.post(`${BASE_URL.API}/api/v1/login`, {
-      email, password
+    axios.post(`${BASE_URL.API}/api/v1/post`, {
+      title: post.title,
+      body: post.body,
+      author: post.author,
+      date: post.date,
+      blogID: post.blogID
     }).then(res => {
       if (res.status !== 200) {
         throw new Error("Server error (not 200).")
@@ -36,8 +40,12 @@ export function editPost(post) {
   return (dispatch) => {
     dispatch(editingPost())
 
-    axios.post(`${BASE_URL.API}/api/v1/login`, {
-      email, password
+    axios.put(`${BASE_URL.API}/api/v1/post/${post.id}`, {
+      title: post.title,
+      body: post.body,
+      author: post.author,
+      date: post.date,
+      blogID: post.blogID
     }).then(res => {
       if (res.status !== 200) {
         throw new Error("Server error (not 200).")
@@ -65,8 +73,7 @@ export function removePost(post) {
   return (dispatch) => {
     dispatch(removingPost())
 
-    axios.post(`${BASE_URL.API}/api/v1/login`, {
-      email, password
+    axios.delete(`${BASE_URL.API}/api/v1/post/${post.id}`, {
     }).then(res => {
       if (res.status !== 200) {
         throw new Error("Server error (not 200).")
@@ -90,12 +97,11 @@ export function removePost(post) {
   }
 }
 
-export function fetchPost(post) {
+export function fetchPost(postID) {
   return (dispatch) => {
     dispatch(fetchingPost())
 
-    axios.post(`${BASE_URL.API}/api/v1/login`, {
-      email, password
+    axios.get(`${BASE_URL.API}/api/v1/post/${postID}`, {
     }).then(res => {
       if (res.status !== 200) {
         throw new Error("Server error (not 200).")
@@ -106,7 +112,7 @@ export function fetchPost(post) {
         throw new Error("Server error (no data).")
       }
 
-      dispatch(fetchingPostSuccess())
+      dispatch(fetchingPostSuccess(data))
     }).catch(err => {
       dispatch(fetchingPostFailed())
       if (err.status) {
@@ -197,9 +203,10 @@ function fetchingPost() {
   }
 }
 
-function fetchingPostSuccess() {
+function fetchingPostSuccess(post) {
   return {
-    type: POST.FETCHING_POST_SUCCESS
+    type: POST.FETCHING_POST_SUCCESS,
+    payload: post
   }
 }
 
