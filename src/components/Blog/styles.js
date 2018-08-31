@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const Title = styled.div`
+export const Name = styled.div`
   font-family: 'Comfortaa', cursive;
   font-size: 24px;
   color: #393D3F;

@@ -64,13 +64,13 @@ export function fetchBlogs() {
   return (dispatch) => {
     dispatch(fetchingBlogs())
     const data = [
-      { id: 1, title: "The Best Blog evah", description: "This is the best blog ever. trust me!" },
-      { id: 2, title: "Just a normal blog", description: "All about my self" },
-      { id: 3, title: "My Diary 1", description: "This is my personal diary" },
-      { id: 4, title: "My Diary 2", description: "This is my personal diary" },
-      { id: 5, title: "My Diary 3", description: "This is my personal diary" },
-      { id: 6, title: "My Diary 4", description: "This is my personal diary" },
-      { id: 7, title: "My Diary 5", description: "This is my personal diary" },
+      { id: 1, name: "The Best Blog evah", description: "This is the best blog ever. trust me!" },
+      { id: 2, name: "Just a normal blog", description: "All about my self" },
+      { id: 3, name: "My Diary 1", description: "This is my personal diary" },
+      { id: 4, name: "My Diary 2", description: "This is my personal diary" },
+      { id: 5, name: "My Diary 3", description: "This is my personal diary" },
+      { id: 6, name: "My Diary 4", description: "This is my personal diary" },
+      { id: 7, name: "My Diary 5", description: "This is my personal diary" },
     ];
     dispatch(fetchingBlogsSuccess(data));
     // axios.get(`${BASE_URL.API}/api/v1/blog`, {

@@ -21,33 +21,28 @@ import {
 class HomePage extends Component {
 
   state = {
+    name: 'The Best Blog evah',
+    description: 'This is the best blog ever. trust me!',
+
     title: '',
-    description: '',
+    body: '',
+    author: '',
+    date: 1535533429,
   }
 
   componentDidMount() {
-    this.props.fetchBlogs();
+    this.props.fetchBlogPost(this.state.id);
   }
 
   render() {
-    // const Blogs = [
-    //   { id: 1, title: "The Best Blog evah", description: "This is the best blog ever. trust me!" },
-    //   { id: 2, title: "Just a normal blog", description: "All about my self" },
-    //   { id: 3, title: "My Diary 1", description: "This is my personal diary" },
-    //   { id: 4, title: "My Diary 2", description: "This is my personal diary" },
-    //   { id: 5, title: "My Diary 3", description: "This is my personal diary" },
-    //   { id: 6, title: "My Diary 4", description: "This is my personal diary" },
-    //   { id: 7, title: "My Diary 5", description: "This is my personal diary" },
-    // ];
-    const { blogs } = this.props.blog;
-    const { title, description } = this.state;
-    console.log(blogs);
+    const { posts } = this.props.blog;
+    const { title, body, author } = this.state;
     return (
       <Fragment>
         <Header />
         <Container>
-          <h1>Welcome to Blogpedia!</h1>
-          <h4>Find the best blog here!</h4>
+          <h1>{name}</h1>
+          <h4>{description}</h4>
           <BlogWrapper>
             {blogs.length && blogs.map((blog) => {
               return (

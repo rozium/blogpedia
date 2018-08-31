@@ -21,7 +21,7 @@ import {
 class HomePage extends Component {
 
   state = {
-    title: '',
+    name: '',
     description: '',
   }
 
@@ -30,18 +30,8 @@ class HomePage extends Component {
   }
 
   render() {
-    // const Blogs = [
-    //   { id: 1, title: "The Best Blog evah", description: "This is the best blog ever. trust me!" },
-    //   { id: 2, title: "Just a normal blog", description: "All about my self" },
-    //   { id: 3, title: "My Diary 1", description: "This is my personal diary" },
-    //   { id: 4, title: "My Diary 2", description: "This is my personal diary" },
-    //   { id: 5, title: "My Diary 3", description: "This is my personal diary" },
-    //   { id: 6, title: "My Diary 4", description: "This is my personal diary" },
-    //   { id: 7, title: "My Diary 5", description: "This is my personal diary" },
-    // ];
     const { blogs } = this.props.blog;
-    const { title, description } = this.state;
-    console.log(blogs);
+    const { name, description } = this.state;
     return (
       <Fragment>
         <Header />
@@ -53,7 +43,7 @@ class HomePage extends Component {
               return (
                 <Blog
                   key={blog.id}
-                  title={blog.title}
+                  name={blog.name}
                   description={blog.description}
                 />
               );
@@ -64,10 +54,10 @@ class HomePage extends Component {
           <h1>Make your own Blog!</h1>
           <br />
           <Input
-            value={title}
-            label="Blog Title"
+            value={name}
+            label="Blog name"
             placeholder="My Super Great Blog"
-            onChange={(e) => this.setState({ title: e.target.value })}
+            onChange={(e) => this.setState({ name: e.target.value })}
           />
           <Input
             value={description}
